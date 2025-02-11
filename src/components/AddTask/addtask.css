@@ -1,0 +1,95 @@
+ul{
+    padding: 0;
+    margin: 0;
+    margin-top: 22px;
+    /* list-style: circle; */
+}
+
+
+.li-container{
+    /* width: calc(100% - 110px); */
+    width: 100%;
+    padding: 12px;
+    padding-right: 0;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding-left: 15px;
+    color: #444;
+    /* font-weight: 700; */
+}
+
+
+.icons-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60px;
+
+}
+
+
+.edit-icon{
+    /* margin-right: 12px; */
+    font-size: 22px;
+    color: gray;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+
+
+#delete{
+    color: #666;
+    font-size: 26px;
+}
+
+
+
+.edit-icon:hover{
+    scale: 1.1;
+}
+
+
+.task-text-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    
+    line-height: 100%;
+}
+
+
+.task-title{
+    /* margin-left: 30px; */
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+
+#checkbox{
+    margin-right: 20px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+
+@keyframes backgroundFade {
+    0% {
+      background-color: gray;
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+  
+  .animated-bg {
+    animation: backgroundFade 1s ease-in-out forwards;
+  }
