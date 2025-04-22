@@ -2,8 +2,8 @@
 
 A sleek, feature-rich task management application built with React and Material UI, designed to help you organize your daily tasks efficiently.
 
-![TodoList App Screenshot](todolist-app/public/dark mode screen.png)
-![TodoList App Screenshot](todolist-app/public/light-mode-screen.png)
+![Dark Mode Screenshot](./public/dark%20mode%20screen.png)
+![Light Mode Screenshot](./public/light-mode-screen.png)
 
 
 ## 🌟 Features
