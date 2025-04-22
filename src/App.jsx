@@ -507,7 +507,7 @@ function App() {
         )}
         
         <footer className="app-footer">
-          <p>TaskMaster Pro &copy; {currentYear} | Made with ❤️ | All rights reserved</p>
+          <p>Hamza Asdif React Dev &copy; {currentYear} | Made with ❤️</p>
         </footer>
       </div>
     </AppContext.Provider>
