@@ -15,7 +15,9 @@ const AddTask = (props) => {
     updateTaskPriority,
     updateTaskCategory,
     setTaskDueDate,
-    darkMode
+    darkMode,
+    customCategories,
+    addCustomCategory
   } = props;
   
   return ( 
@@ -33,6 +35,8 @@ const AddTask = (props) => {
         updateTaskCategory={updateTaskCategory}
         setTaskDueDate={setTaskDueDate}
         darkMode={darkMode}
+        customCategories={customCategories}
+        addCustomCategory={addCustomCategory}
       />
     </div>
   );

@@ -28,7 +28,7 @@
 .task-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 10;
+  z-index: 2;
 }
 
 .task-item.completed {
@@ -38,7 +38,17 @@
 
 .task-item.completed .task-name {
   text-decoration: line-through;
-  color: var(--text-secondary);
+  color: var(--text-muted);
+}
+
+.task-item.completed .task-meta {
+  opacity: 0.7;
+}
+
+.task-item.completed .action-btn {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* Task Content */
@@ -135,7 +145,7 @@
   display: flex;
   gap: 0.5rem;
   position: relative;
-  z-index: 20;
+  z-index: 3;
 }
 
 .action-btn {
@@ -213,12 +223,20 @@
   background-color: var(--bg-color);
   border-radius: var(--radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 100;
+  z-index: 1000;
   min-width: 200px;
   overflow: hidden;
   animation: fadeIn 0.2s ease;
   margin-top: 5px;
   border: 1px solid var(--border-color);
+}
+
+/* Dark mode dropdown styles */
+.dark-mode .options-dropdown,
+.dark-mode .date-picker-dropdown {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dropdown-header {
@@ -228,6 +246,13 @@
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   text-align: center;
+}
+
+.dark-mode .dropdown-header {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  font-weight: bold;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .priority-options {
@@ -244,6 +269,11 @@
   min-width: 240px;
 }
 
+/* Fix for dropdown positioning */
+.task-item.has-open-dropdown {
+  z-index: 100 !important;
+}
+
 .dropdown-item {
   display: flex;
   align-items: center;
@@ -257,6 +287,24 @@
 .dropdown-item:hover {
   background-color: var(--bg-secondary);
 }
+
+.dark-mode .dropdown-item {
+  color: var(--text-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .dropdown-item:hover {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0.5rem 0;
+}
+
+
 
 /* Date picker styles */
 .date-picker-dropdown input[type="date"] {
@@ -273,6 +321,16 @@
 .date-picker-dropdown input[type="date"]:focus {
   outline: none;
   background-color: var(--bg-secondary);
+}
+
+.dark-mode .date-picker-dropdown input[type="date"] {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dark-mode .date-picker-dropdown input[type="date"]:focus {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .date-picker-actions {
@@ -295,6 +353,12 @@
 .date-action.clear {
   background-color: var(--bg-secondary);
   color: var(--text-color);
+}
+
+.dark-mode .date-action.clear {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .date-action.today {
@@ -360,24 +424,43 @@
   .task-actions {
     margin-top: 1rem;
     width: 100%;
-    justify-content: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .action-btn {
+    flex: 1;
+    min-width: 80px;
+    margin-bottom: 0.5rem;
   }
   
   .options-dropdown,
   .date-picker-dropdown {
-    right: 0;
-    top: auto;
-    bottom: 100%;
-    margin-bottom: 0.5rem;
+    position: fixed;
+    right: 16px;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    margin: 0;
+    max-width: calc(100% - 32px);
+    max-height: 80vh;
+    overflow-y: auto;
   }
   
   .priority-options,
-  .category-options {
-    right: 0;
+  .category-options,
+  .date-picker-dropdown {
+    right: 16px;
   }
   
   .task-meta {
     margin-top: 0.5rem;
+    width: 100%;
+  }
+  
+  .task-content {
+    width: 100%;
   }
 }
 
@@ -386,6 +469,43 @@ ul{
     margin: 0;
     margin-top: 22px;
     /* list-style: circle; */
+}
+
+/* Mobile-first styles */
+@media (max-width: 480px) {
+  .main-app-section {
+    padding: 1rem;
+  }
+  
+  .task-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .action-label {
+    display: none;
+  }
+  
+  .action-btn {
+    padding: 0.5rem;
+    min-width: auto;
+  }
+  
+  .task-item {
+    padding: 0.75rem;
+  }
+  
+  .task-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  
+  .task-category, 
+  .task-due-date, 
+  .task-priority {
+    width: 100%;
+  }
 }
 
 .Main-task-section {

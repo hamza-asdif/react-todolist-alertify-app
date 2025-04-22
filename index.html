@@ -3,24 +3,198 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="/todolist-app-svg.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + React</title>
+  <title>Modern Todolist App</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-  <!-- include the style -->
-<link rel="stylesheet" href="{PATH}/alertify.min.css" />
-<!-- include a theme -->
-<link rel="stylesheet" href="{PATH}/themes/default.min.css" />
-
-
+  <!-- Alertify CSS -->
+  <link rel="stylesheet" href="/node_modules/alertifyjs/build/css/alertify.min.css" />
+  <link rel="stylesheet" href="/node_modules/alertifyjs/build/css/themes/default.min.css" />
+  <style>
+    /* Override default alertify theme completely */
+    .alertify.ajs-theme-default.ajs-maximized .ajs-dialog,
+    .alertify.ajs-theme-default.ajs-resizable .ajs-dialog,
+    .alertify.ajs-theme-default .ajs-dialog {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #ddd;
+    }
+    
+    /* Override focus outline color */
+    .alertify .ajs-dialog:focus {
+      outline: none !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    /* Remove blue header background */
+    .alertify.ajs-theme-default .ajs-header {
+      background-color: #f5f5f5;
+      color: #333;
+      border-bottom: 1px solid #eee;
+    }
+    
+    /* Override body background */
+    .alertify.ajs-theme-default .ajs-body {
+      color: #333;
+    }
+    
+    .alertify.ajs-theme-default .ajs-body .ajs-content {
+      padding: 16px;
+    }
+    
+    .alertify .ajs-header {
+      padding: 12px 16px;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .alertify .ajs-body .ajs-content {
+      padding: 16px;
+    }
+    
+    .alertify .ajs-footer {
+      padding: 12px;
+      border-top: 1px solid #eee;
+    }
+    
+    .alertify .ajs-footer .ajs-buttons .ajs-button {
+      min-width: 80px;
+      border-radius: 4px;
+      font-weight: 500;
+      padding: 6px 12px;
+    }
+    
+    /* Confirmation dialog footer and buttons */
+    .alertify.ajs-theme-default .ajs-footer {
+      background-color: #f5f5f5;
+      border-top: 1px solid #eee;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .alertify .ajs-footer .ajs-buttons .ajs-button {
+      border-radius: 4px;
+      font-weight: 500;
+      padding: 6px 12px;
+    }
+    
+    /* Primary button (OK/Yes) */
+    .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok,
+    .alertify.ajs-theme-default .ajs-footer .ajs-buttons.ajs-primary .ajs-button {
+      background-color: #f44336 !important; /* Red */
+      color: white !important;
+      border: none !important;
+      outline: none !important;
+    }
+    
+    .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok:hover {
+      background-color: #d32f2f;
+    }
+    
+    /* Secondary button (Cancel/No) */
+    .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel,
+    .alertify.ajs-theme-default .ajs-footer .ajs-buttons.ajs-auxiliary .ajs-button {
+      background-color: #757575 !important; /* Gray */
+      color: white !important;
+      border: none !important;
+      outline: none !important;
+    }
+    
+    .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel:hover {
+      background-color: #616161;
+    }
+    
+    /* Notification styles */
+    .alertify-notifier .ajs-message {
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .alertify-notifier .ajs-message.ajs-success {
+      background-color: #4caf50;
+      color: white;
+    }
+    
+    .alertify-notifier .ajs-message.ajs-error {
+      background-color: #f44336;
+      color: white;
+    }
+    
+    /* Dark mode styles for alertify - using light background for better contrast */
+    body.dark-mode .alertify .ajs-dialog,
+    body.dark-mode .alertify.ajs-theme-default .ajs-dialog,
+    body.dark-mode .alertify.ajs-theme-default.ajs-maximized .ajs-dialog,
+    body.dark-mode .alertify.ajs-theme-default.ajs-resizable .ajs-dialog {
+      background-color: #f5f5f5 !important;
+      border: 1px solid #ddd !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    body.dark-mode .alertify .ajs-header,
+    body.dark-mode .alertify.ajs-theme-default .ajs-header {
+      background-color: #e0e0e0 !important;
+      color: #333 !important;
+      border-bottom: 1px solid #ccc !important;
+    }
+    
+    body.dark-mode .alertify .ajs-body,
+    body.dark-mode .alertify.ajs-theme-default .ajs-body {
+      color: #333 !important;
+    }
+    
+    body.dark-mode .alertify .ajs-body .ajs-content,
+    body.dark-mode .alertify.ajs-theme-default .ajs-body .ajs-content {
+      color: #333 !important;
+    }
+    
+    body.dark-mode .alertify .ajs-footer,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer {
+      background-color: #e0e0e0 !important;
+      border-top: 1px solid #ccc !important;
+    }
+    
+    /* Keep primary button red in dark mode */
+    body.dark-mode .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons.ajs-primary .ajs-button,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons .ajs-button.ajs-ok {
+      background-color: #f44336 !important;
+      color: white !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    
+    body.dark-mode .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok:hover,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons.ajs-primary .ajs-button:hover,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons .ajs-button.ajs-ok:hover {
+      background-color: #d32f2f !important;
+    }
+    
+    /* Gray for secondary button in dark mode */
+    body.dark-mode .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons.ajs-auxiliary .ajs-button,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons .ajs-button.ajs-cancel {
+      background-color: #757575 !important;
+      color: white !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    
+    body.dark-mode .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel:hover,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons.ajs-auxiliary .ajs-button:hover,
+    body.dark-mode .alertify.ajs-theme-default .ajs-footer .ajs-buttons .ajs-button.ajs-cancel:hover {
+      background-color: #616161 !important;
+    }
+  </style>
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-  <!-- include the script -->
-<script src="{PATH}/alertify.min.js"></script>
+  <!-- Alertify Script -->
+  <script src="/node_modules/alertifyjs/build/alertify.min.js"></script>
 
 </body>
 

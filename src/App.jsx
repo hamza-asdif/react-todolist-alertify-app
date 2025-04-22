@@ -2,7 +2,8 @@
 import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import alertify from "alertifyjs";
-import "alertifyjs/build/css/alertify.min.css";
+import "alertifyjs/build/css/alertify.css";
+import "alertifyjs/build/css/themes/default.css";
 
 // Import components
 import HeaderTitle from "./components/HeaderTitle/HeaderTitle";
@@ -26,6 +27,7 @@ function App() {
   const [TaskName, setTaskName] = useState("");
   const [ClickToEdit, setClickToEdit] = useState(false);
   
+
   // Filter and sort states
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all"); // all, active, completed
@@ -104,6 +106,8 @@ function App() {
   useEffect(() => {
     setLocalStorage();
   }, [TaskObj]);
+  
+
 
   // DELETE TASK FUNCTION
   const DeleteTask = (id) => {
@@ -167,6 +171,8 @@ function App() {
     setTaskObj(updatedTasks);
     alertify.success(`Category set to ${category}`);
   };
+  
+
 
   // SET DUE DATE
   const setTaskDueDate = (id, dueDate) => {
@@ -406,6 +412,7 @@ function App() {
               updateTaskCategory={updateTaskCategory}
               setTaskDueDate={setTaskDueDate}
               darkMode={darkMode}
+
             />
           </div>
         </main>
