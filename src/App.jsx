@@ -24,7 +24,6 @@ function App() {
     JSON.parse(localStorage.getItem("TaskState")) || []
   );
   const [TaskName, setTaskName] = useState("");
-  const [NewEditTask, setNewEditTask] = useState({});
   const [ClickToEdit, setClickToEdit] = useState(false);
   
   // Filter and sort states
@@ -112,21 +111,43 @@ function App() {
     setTaskObj(updatedTasks);
   };
 
+  // State for edit modal
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
+
   // EDIT TASK FUNCTION
   const EditTask = (id) => {
     const task = TaskObj.find((item) => item.id === id);
-    setTaskName(task.name);
-    setNewEditTask(task);
-    setClickToEdit(true);
+    if (!task) return;
     
-    // Scroll to the input field and focus it
-    setTimeout(() => {
-      if (InputRef.current) {
-        InputRef.current.focus();
-        // Scroll to the input field
-        InputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 100);
+    // Set the task to edit and show modal
+    setEditingTask({...task});
+    setShowEditModal(true);
+  };
+
+  // Update task after editing
+  const updateTaskAfterEdit = (updatedTask) => {
+    if (!updatedTask || !updatedTask.id) return;
+    
+    if (updatedTask.name.trim() === "") {
+      alertify.error("Task name cannot be empty");
+      return;
+    }
+    
+    const updatedTasks = TaskObj.map((item) =>
+      item.id === updatedTask.id ? { ...updatedTask, name: updatedTask.name.trim() } : item
+    );
+    
+    setTaskObj(updatedTasks);
+    setShowEditModal(false);
+    setEditingTask(null);
+    alertify.success("Task updated successfully!");
+  };
+
+  // Cancel task editing
+  const cancelTaskEdit = () => {
+    setShowEditModal(false);
+    setEditingTask(null);
   };
 
   // UPDATE TASK PRIORITY
@@ -211,6 +232,25 @@ function App() {
       return 0;
     });
 
+  // Format date for input value
+  const formatDateForInput = (dateString) => {
+    if (!dateString) return '';
+    
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return ''; // Invalid date
+      
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      
+      return `${year}-${month}-${day}`;
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return '';
+    }
+  };
+
   // INPUT REF FUNCTIONS
   const InputRef = useRef();
 
@@ -219,7 +259,7 @@ function App() {
     
     if (InputRef.current.value.trim() !== "") {
       const updatedTasks = TaskObj.map((item) =>
-        item.id === NewEditTask.id ? 
+        item.id === TaskObj.find(task => task.name === InputRef.current.value.trim()).id ? 
         { 
           ...item, 
           name: InputRef.current.value.trim(),
@@ -369,6 +409,95 @@ function App() {
             />
           </div>
         </main>
+        
+        {/* Edit Task Modal */}
+        {showEditModal && editingTask && (
+          <div className="edit-modal-overlay" onClick={cancelTaskEdit}>
+            <div className="edit-modal" onClick={(e) => e.stopPropagation()}>
+              <h3 className="edit-modal-title">Edit Task</h3>
+              
+              <div className="edit-modal-content">
+                <div className="edit-modal-field">
+                  <label>Task Name</label>
+                  <input 
+                    type="text" 
+                    value={editingTask.name}
+                    onChange={(e) => setEditingTask({...editingTask, name: e.target.value})}
+                    className="edit-modal-input"
+                    autoFocus
+                  />
+                </div>
+                
+                <div className="edit-modal-field">
+                  <label>Priority</label>
+                  <div className="edit-modal-options">
+                    <button 
+                      className={`priority-option ${editingTask.priority === 'high' ? 'active' : ''}`}
+                      onClick={() => setEditingTask({...editingTask, priority: 'high'})}
+                      style={{ backgroundColor: 'var(--priority-high)' }}
+                    >
+                      High
+                    </button>
+                    <button 
+                      className={`priority-option ${editingTask.priority === 'normal' ? 'active' : ''}`}
+                      onClick={() => setEditingTask({...editingTask, priority: 'normal'})}
+                      style={{ backgroundColor: 'var(--priority-normal)' }}
+                    >
+                      Normal
+                    </button>
+                    <button 
+                      className={`priority-option ${editingTask.priority === 'low' ? 'active' : ''}`}
+                      onClick={() => setEditingTask({...editingTask, priority: 'low'})}
+                      style={{ backgroundColor: 'var(--priority-low)' }}
+                    >
+                      Low
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="edit-modal-field">
+                  <label>Category</label>
+                  <select 
+                    className="edit-modal-select"
+                    value={editingTask.category || 'general'}
+                    onChange={(e) => setEditingTask({...editingTask, category: e.target.value})}
+                  >
+                    <option value="general">General</option>
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="health">Health</option>
+                  </select>
+                </div>
+                
+                <div className="edit-modal-field">
+                  <label>Due Date</label>
+                  <input 
+                    type="date" 
+                    className="edit-modal-date"
+                    value={editingTask.dueDate ? formatDateForInput(editingTask.dueDate) : ''}
+                    onChange={(e) => setEditingTask({...editingTask, dueDate: e.target.value ? new Date(e.target.value).toISOString() : null})}
+                  />
+                </div>
+              </div>
+              
+              <div className="edit-modal-actions">
+                <button 
+                  className="edit-modal-cancel"
+                  onClick={cancelTaskEdit}
+                >
+                  Cancel
+                </button>
+                <button 
+                  className="edit-modal-save"
+                  onClick={() => updateTaskAfterEdit(editingTask)}
+                >
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         
         <footer className="app-footer">
           <p>TaskMaster Pro &copy; {currentYear} | Made with ❤️ | All rights reserved</p>

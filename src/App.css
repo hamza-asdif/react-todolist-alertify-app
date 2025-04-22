@@ -220,3 +220,243 @@ input[type="date"] {
     gap: 0.5rem;
   }
 }
+
+/* Edit Modal */
+.edit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.edit-modal {
+  width: 90%;
+  max-width: 500px;
+  background-color: var(--bg-color);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.edit-modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.8rem;
+}
+
+.edit-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.edit-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.edit-modal-field label {
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.edit-modal-input,
+.edit-modal-select,
+.edit-modal-date {
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  width: 100%;
+}
+
+.edit-modal-input:focus,
+.edit-modal-select:focus,
+.edit-modal-date:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.edit-modal-options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.priority-option {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  opacity: 0.7;
+}
+
+.priority-option.active {
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.priority-option:hover {
+  opacity: 0.9;
+}
+
+.edit-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.2rem;
+}
+
+.edit-modal-cancel,
+.edit-modal-save {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.edit-modal-cancel {
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
+}
+
+.edit-modal-save {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.edit-modal-cancel:hover {
+  background-color: var(--border-color);
+}
+
+.edit-modal-save:hover {
+  background-color: var(--primary-hover);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Alertify customization */
+.alertify .ajs-header {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.alertify .ajs-body .ajs-content {
+  color: var(--text-color);
+}
+
+.alertify .ajs-dialog {
+  background-color: var(--bg-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.alertify .ajs-footer {
+  background-color: var(--bg-secondary);
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button {
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok:hover {
+  background-color: var(--primary-hover);
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel {
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel:hover {
+  background-color: var(--border-color);
+}
+
+.alertify-notifier .ajs-message {
+  border-radius: var(--radius);
+  padding: 0.8rem 1.2rem;
+  font-weight: 500;
+  box-shadow: var(--shadow);
+}
+
+.alertify-notifier .ajs-message.ajs-success {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.alertify-notifier .ajs-message.ajs-error {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.alertify-notifier .ajs-message.ajs-warning {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+/* Dark mode adjustments for alertify */
+.dark-mode .alertify .ajs-dialog {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+}
+
+.dark-mode .alertify .ajs-header {
+  color: var(--text-color);
+}
+
+.dark-mode .alertify .ajs-body .ajs-content {
+  color: var(--text-color);
+}
+
+.dark-mode .alertify .ajs-footer {
+  background-color: var(--bg-secondary);
+}
+
+.dark-mode .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel {
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
+}

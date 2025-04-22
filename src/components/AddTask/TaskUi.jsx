@@ -61,17 +61,23 @@ const TaskUi = (props) => {
   }, [ClickState]);
 
   const DeleteAlert = (id) => {
+    const task = TaskObj.find(item => item.id === id);
+    if (!task) return;
+    
     alertify.confirm(
       "Delete Task",
-      "Are you sure you want to delete this task?",
+      `Are you sure you want to delete this task: "${task.name}"?`,
       function () {
-        alertify.success("Task deleted successfully");
         DeleteTask(id);
+        alertify.success("Task deleted successfully");
       },
       function () {
         alertify.error("Operation canceled");
       }
-    );
+    ).set({
+      'labels': {ok: 'Yes, Delete It', cancel: 'Cancel'},
+      'defaultFocus': 'cancel'
+    });
   };
 
   const toggleOptions = (id, e) => {
@@ -243,12 +249,8 @@ const TaskUi = (props) => {
     setShowOptions({});
     setShowDatePicker(null);
     
-    // Set the task being edited
-    setEditingTaskId(task.id);
-    setEditingTask({...task});
-    
-    // Show the edit modal
-    setShowEditModal(true);
+    // Call the parent edit function
+    EditTask(task.id);
   };
 
   // Handle edit modal close
@@ -347,6 +349,7 @@ const TaskUi = (props) => {
                 title="Set due date"
               >
                 <FaCalendarAlt />
+                <span className="action-label">Date</span>
               </button>
               
               {/* Category Button */}
@@ -356,6 +359,7 @@ const TaskUi = (props) => {
                 title="Set category"
               >
                 <FaTag />
+                <span className="action-label">Category</span>
               </button>
               
               {/* Priority Button */}
@@ -366,6 +370,7 @@ const TaskUi = (props) => {
                 title="Set priority"
               >
                 <FaFlag />
+                <span className="action-label">Priority</span>
               </button>
               
               {/* Edit Button */}
@@ -375,6 +380,7 @@ const TaskUi = (props) => {
                 title="Edit task"
               >
                 <FaEdit />
+                <span className="action-label">Edit</span>
               </button>
               
               {/* Delete Button */}
@@ -387,11 +393,13 @@ const TaskUi = (props) => {
                 title="Delete task"
               >
                 <FaTrashAlt />
+                <span className="action-label">Delete</span>
               </button>
               
               {/* Priority Options Dropdown */}
               {showOptions[task.id + '_priority'] && (
                 <div className="options-dropdown priority-options" onClick={handleDropdownClick}>
+                  <div className="dropdown-header">Select Priority</div>
                   <div 
                     className="dropdown-item" 
                     onClick={() => { 
@@ -399,7 +407,7 @@ const TaskUi = (props) => {
                       toggleOptions(task.id + '_priority'); 
                     }}
                   >
-                    <FaFlag style={{ color: 'var(--priority-high)' }} /> High
+                    <FaFlag style={{ color: 'var(--priority-high)' }} /> High Priority
                   </div>
                   <div 
                     className="dropdown-item" 
@@ -408,7 +416,7 @@ const TaskUi = (props) => {
                       toggleOptions(task.id + '_priority'); 
                     }}
                   >
-                    <FaFlag style={{ color: 'var(--priority-normal)' }} /> Normal
+                    <FaFlag style={{ color: 'var(--priority-normal)' }} /> Normal Priority
                   </div>
                   <div 
                     className="dropdown-item" 
@@ -417,7 +425,7 @@ const TaskUi = (props) => {
                       toggleOptions(task.id + '_priority'); 
                     }}
                   >
-                    <FaFlag style={{ color: 'var(--priority-low)' }} /> Low
+                    <FaFlag style={{ color: 'var(--priority-low)' }} /> Low Priority
                   </div>
                 </div>
               )}
@@ -425,6 +433,7 @@ const TaskUi = (props) => {
               {/* Category Options Dropdown */}
               {showOptions[task.id + '_category'] && (
                 <div className="options-dropdown category-options" onClick={handleDropdownClick}>
+                  <div className="dropdown-header">Select Category</div>
                   <div 
                     className="dropdown-item" 
                     onClick={() => { 
@@ -476,6 +485,7 @@ const TaskUi = (props) => {
               {/* Date Picker Dropdown */}
               {showDatePicker === task.id && (
                 <div className="date-picker-dropdown" onClick={handleDropdownClick}>
+                  <div className="dropdown-header">Set Due Date</div>
                   <input 
                     type="date" 
                     value={task.dueDate ? formatDateForInput(task.dueDate) : ''}

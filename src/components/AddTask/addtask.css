@@ -22,11 +22,13 @@
   transition: var(--transition);
   position: relative;
   margin-bottom: 0.5rem;
+  z-index: 1;
 }
 
 .task-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
 }
 
 .task-item.completed {
@@ -133,40 +135,76 @@
   display: flex;
   gap: 0.5rem;
   position: relative;
+  z-index: 20;
 }
 
 .action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: transparent;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius);
+  background-color: var(--bg-secondary);
   border: none;
   cursor: pointer;
   transition: var(--transition);
   color: var(--text-secondary);
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.action-label {
+  font-weight: 500;
+  display: inline-block;
 }
 
 .action-btn:hover {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-color);
   color: var(--text-color);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.edit-btn {
+  color: var(--primary-color);
 }
 
 .edit-btn:hover {
   color: var(--primary-color);
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.delete-btn {
+  color: var(--danger-color);
 }
 
 .delete-btn:hover {
   color: var(--danger-color);
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.date-btn {
+  color: var(--warning-color);
 }
 
 .date-btn:hover {
   color: var(--warning-color);
+  background-color: rgba(255, 152, 0, 0.1);
 }
 
-/* Dropdown Menus */
+.priority-btn {
+  color: var(--priority-normal);
+}
+
+.category-btn {
+  color: var(--text-color);
+}
+
+.category-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Dropdown styles */
 .options-dropdown,
 .date-picker-dropdown {
   position: absolute;
@@ -175,11 +213,21 @@
   background-color: var(--bg-color);
   border-radius: var(--radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-  min-width: 150px;
+  z-index: 100;
+  min-width: 200px;
   overflow: hidden;
   animation: fadeIn 0.2s ease;
   margin-top: 5px;
+  border: 1px solid var(--border-color);
+}
+
+.dropdown-header {
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
 }
 
 .priority-options {
@@ -192,7 +240,7 @@
 
 .date-picker-dropdown {
   right: 180px;
-  padding: 1rem;
+  padding: 0 0 1rem 0;
   min-width: 240px;
 }
 
@@ -200,30 +248,37 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1rem;
   cursor: pointer;
   transition: var(--transition);
+  font-weight: 500;
 }
 
 .dropdown-item:hover {
   background-color: var(--bg-secondary);
 }
 
-/* Date Picker */
+/* Date picker styles */
 .date-picker-dropdown input[type="date"] {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: 1rem;
   color: var(--text-color);
   background-color: var(--bg-color);
   font-size: 1rem;
 }
 
+.date-picker-dropdown input[type="date"]:focus {
+  outline: none;
+  background-color: var(--bg-secondary);
+}
+
 .date-picker-actions {
   display: flex;
   gap: 0.5rem;
+  padding: 0 1rem;
 }
 
 .date-action {
