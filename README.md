@@ -2,7 +2,9 @@
 
 A sleek, feature-rich task management application built with React and Material UI, designed to help you organize your daily tasks efficiently.
 
-![TodoList App Screenshot](todolist-app/public/screenshot.png)
+![TodoList App Screenshot](todolist-app/public/dark mode screen.png)
+![TodoList App Screenshot](todolist-app/public/light-mode-screen.png)
+
 
 ## 🌟 Features
 
@@ -41,7 +43,7 @@ A sleek, feature-rich task management application built with React and Material 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/modern-todolist-app.git
+git clone https://github.com/hamza-asdif/modern-todolist-app.git
 cd modern-todolist-app
 ```
 
@@ -105,7 +107,7 @@ todolist-app/
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/modern-todolist-app/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/hamza-asdif/modern-todolist-app/issues).
 
 ## 📝 License
 
