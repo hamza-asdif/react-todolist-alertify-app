@@ -18,3 +18,68 @@
     justify-content: center;
     align-items: center;
 }
+
+.header-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  margin-right: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+  transform: rotate(10deg);
+}
+
+.logo-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+.title-container {
+  flex: 1;
+}
+
+.app-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
+}
+
+.app-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0.3rem 0 0 0;
+}
+
+/* Dark mode adjustments */
+:root.dark-mode .logo-container {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .logo-container {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}

@@ -1,22 +1,38 @@
 /* eslint-disable react/prop-types */
-
-
 import TaskUi from "./TaskUi";
-
 import "./addtask.css";
 
 const AddTask = (props) => {
-  let {TaskObj, HandleClick, DeleteTask, EditTask, RefInputFunction, ClickToEdit} = props
+  const {
+    TaskObj,
+    HandleClick,
+    DeleteTask,
+    EditTask,
+    RefInputFunction,
+    ButtonRefFunction,
+    ClickToEdit,
+    setClickToEdit,
+    updateTaskPriority,
+    updateTaskCategory,
+    setTaskDueDate,
+    darkMode
+  } = props;
+  
   return ( 
-    <div className="Main-task-section">
+    <div className="tasks-container">
       <TaskUi 
-      TaskObj={TaskObj}
-      HandleClick={HandleClick}
-      DeleteTask={DeleteTask}
-      EditTask={EditTask}
-      RefInputFunction={RefInputFunction}
-      ClickToEdit={ClickToEdit}
-      
+        TaskObj={TaskObj}
+        HandleClick={HandleClick}
+        DeleteTask={DeleteTask}
+        EditTask={EditTask}
+        RefInputFunction={RefInputFunction}
+        ButtonRefFunction={ButtonRefFunction}
+        ClickToEdit={ClickToEdit}
+        setClickToEdit={setClickToEdit}
+        updateTaskPriority={updateTaskPriority}
+        updateTaskCategory={updateTaskCategory}
+        setTaskDueDate={setTaskDueDate}
+        darkMode={darkMode}
       />
     </div>
   );
