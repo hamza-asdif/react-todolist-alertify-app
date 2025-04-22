@@ -95,7 +95,7 @@ todolist-app/
 │   ├── components/
 │   │   ├── AddTask/
 │   │   ├── HeaderTitle/
-│   │   └── Statistics/
+│   │   └── ... /
 │   ├── context/
 │   ├── App.css
 │   ├── App.jsx
